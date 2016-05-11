@@ -316,7 +316,7 @@ namespace AutoSharp.Auto.HowlingAbyss.ARAMShopAI
 
         public static string[] Karma =
         {
-            "Athene's Unholy Grail", "Morellonomicon",
+            "Morellonomicon", "Zhonya's Hourglass",
             "Sorcerer's Shoes", "Rabadon's Deathcap", "Rylai's Crystal Scepter", "Luden's Echo"
         };
 
