@@ -1,5 +1,5 @@
-# EloBuddy
-AutoSharp port by Void & Neko
+# EloBuddy Autosharp
+
 ___________
 #Features so far:
 #Full autoplay in ARAM
@@ -7,3 +7,5 @@ ___________
 #Auto votes Yes on surrender votes
 #Will pickup health buffs if on low hp
 #Closes the game automatically when the match is over
+_____
+AutoSharp port by Void & Neko
