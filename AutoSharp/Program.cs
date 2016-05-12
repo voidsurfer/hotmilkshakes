@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -109,7 +109,21 @@ namespace AutoSharp
                     });
              */
         }
+		internal class Surrender
+		{
+        public Surrender()
+        {
+            Game.OnNotify += Game_OnNotify;
+        }
 
+        //auto agree to surrender
+        private void Game_OnNotify(GameNotifyEventArgs args)
+        {
+            if(args.EventId==GameEventId.OnSurrenderVote)
+                LeagueSharp.Common.Utility.DelayAction.Add(5000, () => Chat.Say("/ff"));
+        }
+
+    }
         public static void OnDamage(AttackableUnit sender, AttackableUnitDamageEventArgs args)
         {
             if (sender == null) return;
@@ -122,181 +136,21 @@ namespace AutoSharp
 
         private static void AntiShrooms2(EventArgs args)
         {
-            /*
-            if (Map == Utility.Map.MapType.SummonersRift && !Heroes.Player.InFountain() &&
-                Heroes.Player.HealthPercent < Config.Item("recallhp").GetValue<Slider>().Value)
-            {
-                if (Heroes.Player.HealthPercent > 0 && Heroes.Player.CountEnemiesInRange(1800) == 0 &&
-                    !Turrets.EnemyTurrets.Any(t => t.Distance(Heroes.Player) < 950) &&
-                    !Minions.EnemyMinions.Any(m => m.Distance(Heroes.Player) < 950))
-                {
-                    Orbwalker.ActiveMode = MyOrbwalker.OrbwalkingMode.None;
-                    if (!Heroes.Player.HasBuff("Recall"))
-                    {
-                        Heroes.Player.Spellbook.CastSpell(SpellSlot.Recall);
-                    }
-                }
-            }
-
-            var turretNearTargetPosition =
-                    Turrets.EnemyTurrets.FirstOrDefault(t => t.Distance(Heroes.Player.ServerPosition) < 950);
-            if (turretNearTargetPosition != null && turretNearTargetPosition.CountNearbyAllyMinions(950) < 3)
-            {
-                Orbwalker.SetOrbwalkingPoint(Heroes.Player.Position.Extend(HeadQuarters.AllyHQ.Position, 950));
-            }
-             * */
+           
         }
 
         private static void OnCastSpell(Spellbook sender, SpellbookCastSpellEventArgs args)
         {
-            /*
-            if (sender.Owner.IsMe)
-            {
-                if (sender.Owner.IsDead)
-                {
-                    args.Process = false;
-                    return;
-                }
-                if (Map == Utility.Map.MapType.SummonersRift)
-                {
-                    if (Config.Item("onlyfarm").GetValue<bool>() && args.Target.IsValid<Obj_AI_Hero>() &&
-                        args.Target.IsEnemy)
-                    {
-                        args.Process = false;
-                        return;
-                    }
-                    if (Heroes.Player.InFountain() && args.Slot == SpellSlot.Recall)
-                    {
-                        args.Process = false;
-                        return;
-                    }
-                    if (Heroes.Player.HasBuff("Recall"))
-                    {
-                        args.Process = false;
-                        return;
-                    }
-                }
-                if (Heroes.Player.UnderTurret(true) && args.Target.IsValid<Obj_AI_Hero>())
-                {
-                    args.Process = false;
-                    return;
-                }
-            }
-             * */
+            
         }
 
         private static void OnEnd(GameEndEventArgs args)
         {
-            /*
-            if (Config.Item("autosharp.quit").GetValue<bool>())
-            {
-                Thread.Sleep(30000);
-                Game.QuitGame();
-            }
-             * */
+            
             Thread.Sleep(30000);
             Game.QuitGame();
         }
-        /*
-        public static void AntiShrooms(Obj_AI_Base sender, GameObjectIssueOrderEventArgs args)
-        {
-            if (sender != null && sender.IsMe)
-            {
-                if (sender.IsDead)
-                {
-                    args.Process = false;
-                    return;
-                }
-                var turret = Turrets.ClosestEnemyTurret;
-                if (Map == Utility.Map.MapType.SummonersRift && Heroes.Player.HasBuff("Recall") && Heroes.Player.CountEnemiesInRange(1800) == 0 &&
-                    turret.Distance(Heroes.Player) > 950 && !Minions.EnemyMinions.Any(m => m.Distance(Heroes.Player) < 950))
-                {
-                    args.Process = false;
-                    return;
-                }
-
-                if (args.Order == GameObjectOrder.MoveTo)
-                {
-                    if (args.TargetPosition.IsZero)
-                    {
-                        args.Process = false;
-                        return;
-                    }
-                    if (!args.TargetPosition.IsValid())
-                    {
-                        args.Process = false;
-                        return;
-                    }
-                    if (Map == Utility.Map.MapType.SummonersRift && Heroes.Player.InFountain() &&
-                        Heroes.Player.HealthPercent < 100)
-                    {
-                        args.Process = false;
-                        return;
-                    }
-                    if (turret != null && turret.Distance(args.TargetPosition) < 950 &&
-                        turret.CountNearbyAllyMinions(950) < 3)
-                    {
-                        args.Process = false;
-                        return;
-                    }
-                }
-
-                #region BlockAttack
-
-                if (args.Target != null && args.Order == GameObjectOrder.AttackUnit || args.Order == GameObjectOrder.AttackTo)
-                {
-                    if (Config.Item("onlyfarm").GetValue<bool>() && args.Target.IsValid<Obj_AI_Hero>())
-                    {
-                        args.Process = false;
-                        return;
-                    }
-                    if (args.Target.IsValid<Obj_AI_Hero>())
-                    {
-                        if (Minions.AllyMinions.Count(m => m.Distance(Heroes.Player) < 900) <
-                            Minions.EnemyMinions.Count(m => m.Distance(Heroes.Player) < 900))
-                        {
-                            args.Process = false;
-                            return;
-                        }
-                        if (((Obj_AI_Hero) args.Target).UnderTurret(true))
-                        {
-                            args.Process = false;
-                            return;
-                        }
-                    }
-                    if (Heroes.Player.UnderTurret(true) && args.Target.IsValid<Obj_AI_Hero>())
-                    {
-                        args.Process = false;
-                        return;
-                    }
-                    if (turret != null && turret.Distance(ObjectManager.Player) < 950 && turret.CountNearbyAllyMinions(950) < 3)
-                    {
-                        args.Process = false;
-                        return;
-                    }
-                    if (Heroes.Player.HealthPercent < Config.Item("recallhp").GetValue<Slider>().Value)
-                    {
-                        args.Process = false;
-                        return;
-                    }
-                }
-
-                #endregion
-            }
-            if (sender != null && args.Target != null && args.Target.IsMe)
-            {
-                if (sender is Obj_AI_Turret || sender is Obj_AI_Minion)
-                {
-                    var minion = Wizard.GetClosestAllyMinion();
-                    if (minion != null)
-                    {
-                        Orbwalker.SetOrbwalkingPoint(
-                            Heroes.Player.Position.Extend(Wizard.GetClosestAllyMinion().Position, Heroes.Player.Distance(minion) + 100));
-                    }
-                }
-            }
-        }
-        */
+        
         public static void Main(string[] args)
         {
             Game.OnUpdate += AdvancedLoading;
