@@ -109,7 +109,7 @@ namespace AutoSharp
                     });
              */
         }
-		internal class Surrender
+	/*	internal class Surrender
 		{
         public Surrender()
         {
@@ -124,6 +124,7 @@ namespace AutoSharp
         }
 
     }
+    */
         public static void OnDamage(AttackableUnit sender, AttackableUnitDamageEventArgs args)
         {
             if (sender == null) return;
