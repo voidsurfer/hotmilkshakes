@@ -109,22 +109,16 @@ namespace AutoSharp
                     });
              */
         }
-	/*	internal class Surrender
-		{
-        public Surrender()
-        {
-            Game.OnNotify += Game_OnNotify;
-        }
 
         //auto agree to surrender
         private void Game_OnNotify(GameNotifyEventArgs args)
         {
             if(args.EventId==GameEventId.OnSurrenderVote)
                 LeagueSharp.Common.Utility.DelayAction.Add(5000, () => Chat.Say("/ff"));
-        }
+        
 
-    }
-    */
+    	}
+   
         public static void OnDamage(AttackableUnit sender, AttackableUnitDamageEventArgs args)
         {
             if (sender == null) return;
