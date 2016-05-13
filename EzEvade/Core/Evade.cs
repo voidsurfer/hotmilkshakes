@@ -105,7 +105,7 @@ namespace ezEvade
                 SpellDetector.OnProcessDetectedSpells += SpellDetector_OnProcessDetectedSpells;
                 Orbwalker.OnPreAttack += Orbwalking_BeforeAttack;
 
-                Chat.Print("<font color=\"#66CCFF\" >Yomie's </font><font color=\"#CCFFFF\" >ezEvade </font><font color=\"#66CCFF\" >loaded Kappa</font>");
+                Chat.Print("<font color=\"#66CCFF\" >Voids cheap knockoff </font><font color=\"#CCFFFF\" >ezEvade </font><font color=\"#66CCFF\" >loaded.</font>");
 
                 menu = MainMenu.AddMenu("ezEvade", "ezEvade");
                 ObjectCache.menuCache.AddMenuToCache(menu);
