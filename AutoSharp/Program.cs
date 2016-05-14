@@ -115,14 +115,6 @@ namespace AutoSharp
     	{
         	public Surrender()
         	{
-            Game.OnNotify += Game_OnNotify;
-        }
-
-        //auto agree to surrender
-	    internal class Surrender
-    	{
-        	public Surrender()
-        	{
             Obj_AI_Base.OnSurrender += delegate(Obj_AI_Base sender, Obj_AI_BaseSurrenderVoteEventArgs args)
                 {
                     if (args.Type == SurrenderVoteType.Yes && sender.IsAlly)
@@ -133,7 +125,7 @@ namespace AutoSharp
         }
 
     	}
-    	}
+    	
    
         public static void OnDamage(AttackableUnit sender, AttackableUnitDamageEventArgs args)
         {
