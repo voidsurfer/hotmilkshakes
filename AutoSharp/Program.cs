@@ -119,10 +119,17 @@ namespace AutoSharp
         }
 
         //auto agree to surrender
-        private void Game_OnNotify(GameNotifyEventArgs args)
-        {
-            if(args.EventId==GameEventId.OnSurrenderVoteStart)
-                Core.DelayAction(()=>Chat.Say("/ff"), new Random().Next(1000, 2000));
+	    internal class Surrender
+    	{
+        	public Surrender()
+        	{
+            Obj_AI_Base.OnSurrender += delegate(Obj_AI_Base sender, Obj_AI_BaseSurrenderVoteEventArgs args)
+                {
+                    if (args.Type == SurrenderVoteType.Yes && sender.IsAlly)
+                    {
+                        Chat.Print("/ff");
+                    }
+                };
         }
 
     	}
