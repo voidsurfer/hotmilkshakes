@@ -133,6 +133,7 @@ namespace AutoSharp
         }
 
     	}
+    	}
    
         public static void OnDamage(AttackableUnit sender, AttackableUnitDamageEventArgs args)
         {
