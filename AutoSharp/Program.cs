@@ -111,10 +111,10 @@ namespace AutoSharp
         }
 
         //auto agree to surrender
-        private void Game_OnNotify(GameNotifyEventArgs args)
+        public void Game_OnNotify(GameNotifyEventArgs args)
         {
             if(args.EventId==GameEventId.OnSurrenderVote)
-                LeagueSharp.Common.Utility.DelayAction.Add(5000, () => Chat.Say("/ff"));
+               Chat.Say("/ff");
         
 
     	}
