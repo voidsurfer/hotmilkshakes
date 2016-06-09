@@ -1,4 +1,5 @@
 # EloBuddy Autosharp
+Not updating this anymore.
 
 ___________
 #Features so far:
